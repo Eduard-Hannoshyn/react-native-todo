@@ -6,33 +6,50 @@
  */
 
 import React from 'react';
-import {SafeAreaView, StatusBar, useColorScheme} from 'react-native';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {
+  View,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  ImageBackground,
+  useColorScheme,
+} from 'react-native';
 import {Provider} from 'react-redux';
 import {setupStore} from '../store/store';
-
 import ToDo from './ToDo';
 
-function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  const store = setupStore();
+const texture = require('../assets/texture.jpeg');
 
-  const backgroundStyle = {
-    flex: 1,
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+function App(): JSX.Element {
+  const store = setupStore();
+  const isDarkMode = useColorScheme() === 'light';
 
   return (
     <Provider store={store}>
-      <SafeAreaView style={backgroundStyle}>
-        <StatusBar
-          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-          backgroundColor={backgroundStyle.backgroundColor}
-        />
-        <ToDo />
-      </SafeAreaView>
+      <ImageBackground
+        source={texture}
+        resizeMode="cover"
+        style={styles.container}>
+        <View style={[styles.container, styles.overlay]}>
+          <SafeAreaView style={styles.container}>
+            <StatusBar
+              barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+            />
+            <ToDo />
+          </SafeAreaView>
+        </View>
+      </ImageBackground>
     </Provider>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+  },
+});
 
 export default App;
