@@ -18,7 +18,7 @@ import {Provider} from 'react-redux';
 import {setupStore} from '../store/store';
 import ToDo from './ToDo';
 
-const texture = require('../assets/texture.jpeg');
+const texture = require('../assets/img/texture.jpeg');
 
 function App(): JSX.Element {
   const store = setupStore();
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   overlay: {
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
 });
 

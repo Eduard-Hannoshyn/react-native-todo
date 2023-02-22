@@ -1,15 +1,9 @@
 import React, {useState} from 'react';
-import {
-  StyleSheet,
-  TextInput,
-  FlatList,
-  View,
-  Text,
-  Button,
-} from 'react-native';
+import {StyleSheet, TextInput, FlatList, View, Text} from 'react-native';
 import {IAction} from '../models/IAction';
 import {useAppDispatch, useAppSelector} from '../hook/redux';
 import {actionSlice} from '../store/reducers/ActionSlice';
+import ActionItem from './ActionItem';
 
 function ToDo(): JSX.Element {
   const [inputText, setInputText] = useState('');
@@ -29,7 +23,7 @@ function ToDo(): JSX.Element {
   };
 
   return (
-    <>
+    <View style={[styles.container]}>
       <Text style={styles.header}>ToDo</Text>
       <TextInput
         selectionColor={'white'}
@@ -41,27 +35,19 @@ function ToDo(): JSX.Element {
       <View style={[styles.container, styles.listContainer]}>
         <FlatList
           data={actions}
-          style={styles.container}
-          renderItem={({item}) => (
-            <View style={[styles.container, styles.itemContainer]}>
-              <Text style={styles.item}>
-                {item.id + 1}. {item.text}
-              </Text>
-              <View style={styles.buttonSection}>
-                <Button title={'done'} />
-                <Button title={'remove'} />
-              </View>
-            </View>
-          )}
+          renderItem={({item}) => <ActionItem item={item} />}
         />
       </View>
-    </>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  listContainer: {
+    paddingTop: 30,
   },
   header: {
     marginTop: 30,
@@ -79,24 +65,6 @@ const styles = StyleSheet.create({
     borderColor: 'white',
     color: 'white',
     padding: 10,
-  },
-  listContainer: {
-    paddingTop: 30,
-  },
-  itemContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  item: {
-    color: 'white',
-    padding: 12,
-    fontSize: 18,
-    height: 44,
-    width: '40%',
-  },
-  buttonSection: {
-    flexDirection: 'row',
-    alignItems: 'center',
   },
 });
 
