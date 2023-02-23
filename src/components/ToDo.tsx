@@ -2,23 +2,27 @@ import React, {useState} from 'react';
 import {StyleSheet, TextInput, FlatList, View, Text} from 'react-native';
 import {IAction} from '../models/IAction';
 import {useAppDispatch, useAppSelector} from '../hook/redux';
-import {actionSlice} from '../store/reducers/ActionSlice';
-import ActionItem from './ActionItem';
+import {todosSlice} from '../store/reducers/todosSlice';
+import TodoItem from './TodoItem';
+import uuid from 'react-native-uuid';
 
 function ToDo(): JSX.Element {
   const [inputText, setInputText] = useState('');
-  const {actions} = useAppSelector(state => state.actionSlice);
+  const actions = useAppSelector(state =>
+    state.todos.filter(({done}) => !done),
+  );
   const dispatch = useAppDispatch();
-  const {addAction} = actionSlice.actions;
+  const {addTodo} = todosSlice.actions;
+
   const handleSubmit = () => {
     const newAction: IAction = {
-      id: actions.length,
+      id: uuid.v4() as string,
       text: inputText,
       done: false,
       // date: new Date(),
     };
 
-    dispatch(addAction(newAction));
+    dispatch(addTodo(newAction));
     setInputText('');
   };
 
@@ -35,7 +39,8 @@ function ToDo(): JSX.Element {
       <View style={[styles.container, styles.listContainer]}>
         <FlatList
           data={actions}
-          renderItem={({item}) => <ActionItem item={item} />}
+          renderItem={({item, index}) => <TodoItem item={item} index={index} />}
+          keyExtractor={item => item.id}
         />
       </View>
     </View>

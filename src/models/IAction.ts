@@ -1,5 +1,5 @@
 export interface IAction {
-  id: number;
+  id: string;
   text: string;
   done: boolean;
   // date: Date;

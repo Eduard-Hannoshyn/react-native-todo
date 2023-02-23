@@ -1,13 +1,15 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
-import actionSlice from './reducers/ActionSlice';
+import todosReducer from './reducers/todosSlice';
+import logger from 'redux-logger';
 
 const rootReducer = combineReducers({
-  actionSlice,
+  todos: todosReducer,
 });
 
 export const setupStore = () => {
   return configureStore({
     reducer: rootReducer,
+    middleware: getDefaultMiddleware => getDefaultMiddleware().concat(logger),
   });
 };
 
