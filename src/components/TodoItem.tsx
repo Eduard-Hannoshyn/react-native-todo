@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
-import {IAction} from '../models/IAction';
+import {ITodo} from '../models/ITodo';
 import DoneIcon from '../assets/svg/done.svg';
 import TrashIcon from '../assets/svg/trash.svg';
 import ButtonWithSvgIcon from './ButtonWithSvgIcon';
@@ -8,7 +8,7 @@ import {todosSlice} from '../store/reducers/todosSlice';
 import {useAppDispatch} from '../hook/redux';
 
 interface IProps {
-  item: IAction;
+  item: ITodo;
   index: number;
 }
 

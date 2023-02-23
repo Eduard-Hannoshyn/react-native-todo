@@ -1,6 +1,6 @@
-export interface IAction {
+export interface ITodo {
   id: string;
   text: string;
-  done: boolean;
+  completed: boolean;
   // date: Date;
 }

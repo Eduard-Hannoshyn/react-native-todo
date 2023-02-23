@@ -1,24 +1,23 @@
 import React, {useState} from 'react';
 import {StyleSheet, TextInput, FlatList, View, Text} from 'react-native';
-import {IAction} from '../models/IAction';
+import {ITodo} from '../models/ITodo';
 import {useAppDispatch, useAppSelector} from '../hook/redux';
 import {todosSlice} from '../store/reducers/todosSlice';
 import TodoItem from './TodoItem';
 import uuid from 'react-native-uuid';
+import {selectUncompletedTodos} from '../store/selectors/todosSelector';
 
 function ToDo(): JSX.Element {
   const [inputText, setInputText] = useState('');
-  const actions = useAppSelector(state =>
-    state.todos.filter(({done}) => !done),
-  );
+  const uncompletedTodos = useAppSelector(selectUncompletedTodos);
   const dispatch = useAppDispatch();
   const {addTodo} = todosSlice.actions;
 
   const handleSubmit = () => {
-    const newAction: IAction = {
+    const newAction: ITodo = {
       id: uuid.v4() as string,
       text: inputText,
-      done: false,
+      completed: false,
       // date: new Date(),
     };
 
@@ -38,7 +37,7 @@ function ToDo(): JSX.Element {
       />
       <View style={[styles.container, styles.listContainer]}>
         <FlatList
-          data={actions}
+          data={uncompletedTodos}
           renderItem={({item, index}) => <TodoItem item={item} index={index} />}
           keyExtractor={item => item.id}
         />

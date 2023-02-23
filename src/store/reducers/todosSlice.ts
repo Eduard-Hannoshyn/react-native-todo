@@ -1,23 +1,23 @@
-import {IAction} from '../../models/IAction';
+import {ITodo} from '../../models/ITodo';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-const initialState: IAction[] = [];
+const initialState: ITodo[] = [];
 
 export const todosSlice = createSlice({
   name: 'todos',
   initialState,
   reducers: {
-    addTodo(state, action: PayloadAction<IAction>) {
+    addTodo(state, action: PayloadAction<ITodo>) {
       state.unshift(action.payload);
     },
-    deleteTodo(state, action: PayloadAction<IAction['id']>) {
+    deleteTodo(state, action: PayloadAction<ITodo['id']>) {
       return state.filter(({id}) => id !== action.payload);
     },
-    toggleTodo(state, action: PayloadAction<IAction['id']>) {
+    toggleTodo(state, action: PayloadAction<ITodo['id']>) {
       const item = state.find(({id}) => id === action.payload);
 
       if (item) {
-        item.done = !item.done;
+        item.completed = !item.completed;
       }
     },
   },
