@@ -8,20 +8,20 @@ import {todosSlice} from '../store/reducers/todosSlice';
 import {useAppDispatch} from '../hook/redux';
 
 interface IProps {
-  item: ITodo;
+  todo: ITodo;
   index: number;
 }
 
-function TodoItem({item, index}: IProps): JSX.Element {
-  const {id, text} = item;
+function Todo({todo, index}: IProps): JSX.Element {
+  const {id, text} = todo;
   const dispatch = useAppDispatch();
   const {deleteTodo, toggleTodo} = todosSlice.actions;
 
-  const handleDeleteAction = () => {
+  const handleDeleteTodo = () => {
     dispatch(deleteTodo(id));
   };
 
-  const handleToggleAction = () => {
+  const handleToggleTodo = () => {
     dispatch(toggleTodo(id));
   };
 
@@ -33,12 +33,12 @@ function TodoItem({item, index}: IProps): JSX.Element {
       <View style={styles.buttonSection}>
         <ButtonWithSvgIcon
           icon={DoneIcon}
-          onPress={handleToggleAction}
+          onPress={handleToggleTodo}
           title="Done"
         />
         <ButtonWithSvgIcon
           icon={TrashIcon}
-          onPress={handleDeleteAction}
+          onPress={handleDeleteTodo}
           title="Delete"
           isLast
         />
@@ -67,4 +67,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TodoItem;
+export default Todo;

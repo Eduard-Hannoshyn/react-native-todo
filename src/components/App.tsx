@@ -16,7 +16,7 @@ import {
 } from 'react-native';
 import {Provider} from 'react-redux';
 import {setupStore} from '../store/store';
-import ToDo from './ToDo';
+import Todos from './Todos';
 
 const texture = require('../assets/img/texture.jpeg');
 
@@ -35,7 +35,7 @@ function App(): JSX.Element {
             <StatusBar
               barStyle={isDarkMode ? 'light-content' : 'dark-content'}
             />
-            <ToDo />
+            <Todos />
           </SafeAreaView>
         </View>
       </ImageBackground>

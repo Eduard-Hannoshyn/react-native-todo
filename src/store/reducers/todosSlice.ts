@@ -1,5 +1,6 @@
 import {ITodo} from '../../models/ITodo';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import uuid from 'react-native-uuid';
 
 const initialState: ITodo[] = [];
 
@@ -7,8 +8,15 @@ export const todosSlice = createSlice({
   name: 'todos',
   initialState,
   reducers: {
-    addTodo(state, action: PayloadAction<ITodo>) {
-      state.unshift(action.payload);
+    addTodo(state, action: PayloadAction<ITodo['text']>) {
+      const newAction: ITodo = {
+        id: uuid.v4() as string,
+        text: action.payload,
+        completed: false,
+        // date: new Date(),
+      };
+
+      state.unshift(newAction);
     },
     deleteTodo(state, action: PayloadAction<ITodo['id']>) {
       return state.filter(({id}) => id !== action.payload);
