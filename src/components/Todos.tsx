@@ -3,7 +3,6 @@ import {StyleSheet, TextInput, FlatList, View, Text} from 'react-native';
 import {useAppDispatch, useAppSelector} from '../hook/redux';
 import {todosSlice} from '../store/reducers/todosSlice';
 import Todo from './Todo';
-import Notifications from './Notifications';
 import {selectUncompletedTodos} from '../store/selectors/todosSelector';
 
 function Todos(): JSX.Element {
@@ -19,7 +18,6 @@ function Todos(): JSX.Element {
 
   return (
     <View style={styles.container}>
-      <Notifications />
       <Text style={styles.header}>Todos</Text>
       <TextInput
         selectionColor={'white'}

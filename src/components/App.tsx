@@ -1,24 +1,31 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
-import {
-  View,
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  ImageBackground,
-  useColorScheme,
-} from 'react-native';
+import {useColorScheme} from 'react-native';
 import {Provider} from 'react-redux';
 import {setupStore} from '../store/store';
 import Todos from './Todos';
+import SafeBackgroundContainer from './SafeBackgroundContainer';
+import Notifications from './Notifications';
+import {NotificationType} from '../models/INotification';
 
 const texture = require('../assets/img/texture.jpeg');
+
+const notifications = [
+  {
+    id: '1',
+    type: NotificationType.success,
+    message: 'Some Message',
+  },
+  {
+    id: '2',
+    type: NotificationType.info,
+    message: 'info',
+  },
+  {
+    id: '3',
+    type: NotificationType.failed,
+    message: 'info',
+  },
+];
 
 function App(): JSX.Element {
   const store = setupStore();
@@ -26,30 +33,14 @@ function App(): JSX.Element {
 
   return (
     <Provider store={store}>
-      <ImageBackground
-        source={texture}
-        resizeMode="cover"
-        style={styles.container}>
-        <View style={[styles.container, styles.overlay]}>
-          <SafeAreaView style={styles.container}>
-            <StatusBar
-              barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-            />
-            <Todos />
-          </SafeAreaView>
-        </View>
-      </ImageBackground>
+      <Notifications isDarkMode={isDarkMode} notifications={notifications} />
+      <SafeBackgroundContainer
+        isDarkMode={isDarkMode}
+        textureSource={texture}
+        component={Todos}
+      />
     </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  overlay: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-});
 
 export default App;
