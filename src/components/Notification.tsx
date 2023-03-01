@@ -35,7 +35,7 @@ function Notification(props: IProps): JSX.Element {
     <Animated.View
       style={[styles.shadowContainer, {transform: [{translateY: anim}]}]}>
       <BlurView style={styles.blurContainer} blurType="light" blurAmount={2}>
-        <Icon width="25" height="25" fill="rgba(0, 255, 0, 0.6)" />
+        <Icon width="20" height="20" />
         <Text style={styles.text}>{message}</Text>
       </BlurView>
     </Animated.View>

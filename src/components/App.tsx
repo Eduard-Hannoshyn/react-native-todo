@@ -13,17 +13,17 @@ const notifications = [
   {
     id: '1',
     type: NotificationType.success,
-    message: 'Some Message',
+    message: 'Success Message',
   },
   {
     id: '2',
     type: NotificationType.info,
-    message: 'info',
+    message: 'Info Message',
   },
   {
     id: '3',
     type: NotificationType.failed,
-    message: 'info',
+    message: 'Failed Message',
   },
 ];
 
