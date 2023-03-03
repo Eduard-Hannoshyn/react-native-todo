@@ -9,3 +9,5 @@ export interface INotification {
   type: NotificationType;
   message: string;
 }
+
+export type INotificationAction = Omit<INotification, 'id'>;

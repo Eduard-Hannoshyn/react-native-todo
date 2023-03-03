@@ -1,6 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Notification from './Notification';
-import {INotification} from '../models/INotification';
 import {
   View,
   TouchableHighlight,
@@ -11,20 +10,29 @@ import {
   Animated,
 } from 'react-native';
 import {BlurView} from '@react-native-community/blur';
+import {useAppDispatch, useAppSelector} from '../hook/redux';
+import {
+  makeSelectIsNotificationsOpen,
+  makeSelectNotification,
+} from '../store/selectors/globalSeletor';
 
 interface IProps {
   isDarkMode: boolean;
-  notifications: INotification[];
 }
 
 function Notifications(props: IProps): JSX.Element {
-  const {isDarkMode, notifications} = props;
+  const {isDarkMode} = props;
+  const dispatch = useAppDispatch();
+  const notifications = useAppSelector(makeSelectNotification());
+  const isNotificationsOpen = useAppSelector(makeSelectIsNotificationsOpen());
+
   const [isOpen, setIsOpen] = useState(false);
   const windowHeight = Dimensions.get('window').height;
   const anim = useRef(new Animated.Value(-windowHeight)).current;
   const translateY = isOpen ? 0 : -windowHeight;
 
   useEffect(() => {
+    //TODO: change here
     Animated.timing(anim, {
       toValue: translateY,
       duration: 250,

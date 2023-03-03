@@ -13,7 +13,6 @@ export const todosSlice = createSlice({
         id: uuid.v4() as string,
         text: action.payload,
         completed: false,
-        // date: new Date(),
       };
 
       state.unshift(newAction);

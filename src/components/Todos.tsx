@@ -1,18 +1,29 @@
 import React, {useState} from 'react';
-import {StyleSheet, TextInput, FlatList, View, Text} from 'react-native';
+import {FlatList, StyleSheet, Text, TextInput, View} from 'react-native';
 import {useAppDispatch, useAppSelector} from '../hook/redux';
 import {todosSlice} from '../store/reducers/todosSlice';
 import Todo from './Todo';
-import {selectUncompletedTodos} from '../store/selectors/todosSelector';
+import {makeSelectUncompletedTodos} from '../store/selectors/todosSelector';
+import {globalSlice} from '../store/reducers/globalSlice';
+import {NotificationType} from '../models/INotification';
 
 function Todos(): JSX.Element {
-  const [inputText, setInputText] = useState('');
-  const uncompletedTodos = useAppSelector(selectUncompletedTodos);
   const dispatch = useAppDispatch();
   const {addTodo} = todosSlice.actions;
+  const {addNotification} = globalSlice.actions;
+  const uncompletedTodos = useAppSelector(makeSelectUncompletedTodos());
+
+  const [inputText, setInputText] = useState('');
 
   const handleSubmit = () => {
+    const notification = {
+      type: NotificationType.success,
+      message: 'Todo successful added',
+    };
+
     dispatch(addTodo(inputText));
+    dispatch(addNotification(notification));
+
     setInputText('');
   };
 

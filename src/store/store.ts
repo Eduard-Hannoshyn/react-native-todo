@@ -1,9 +1,11 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import todosReducer from './reducers/todosSlice';
+import globalReducer from './reducers/globalSlice';
 import logger from 'redux-logger';
 
 const rootReducer = combineReducers({
   todos: todosReducer,
+  global: globalReducer,
 });
 
 export const setupStore = () => {
