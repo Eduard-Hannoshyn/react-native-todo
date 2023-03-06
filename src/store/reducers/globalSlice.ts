@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import uuid from 'react-native-uuid';
-import {INotification, INotificationAction} from '../../models/INotification';
+import {INotification, INotificationAction} from '../../models';
 
 interface IState {
   isNotificationsOpen: boolean;

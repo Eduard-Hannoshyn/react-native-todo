@@ -2,9 +2,8 @@ import React from 'react';
 import {useColorScheme} from 'react-native';
 import {Provider} from 'react-redux';
 import {setupStore} from '../store/store';
-import Todos from './Todos';
-import SafeBackgroundContainer from './SafeBackgroundContainer';
-import Notifications from './Notifications';
+import {SafeBackgroundContainer} from '../components';
+import {Notifications, Todos} from './index';
 
 const texture = require('../assets/img/texture.jpeg');
 

@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {FlatList, StyleSheet, Text, TextInput, View} from 'react-native';
-import {useAppDispatch, useAppSelector} from '../hook/redux';
-import {todosSlice} from '../store/reducers/todosSlice';
+import {useAppDispatch, useAppSelector} from '../../hook/redux';
+import {todosSlice} from '../../store/reducers/todosSlice';
 import Todo from './Todo';
-import {makeSelectUncompletedTodos} from '../store/selectors/todosSelector';
-import {globalSlice} from '../store/reducers/globalSlice';
-import {NotificationType} from '../models/INotification';
+import {makeSelectUncompletedTodos} from '../../store/selectors/todosSelector';
+import {globalSlice} from '../../store/reducers/globalSlice';
+import {NotificationType} from '../../models';
 
 function Todos(): JSX.Element {
   const dispatch = useAppDispatch();

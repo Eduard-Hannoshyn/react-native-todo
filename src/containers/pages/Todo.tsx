@@ -1,11 +1,11 @@
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
-import {ITodo} from '../models/ITodo';
-import DoneIcon from '../assets/svg/done.svg';
-import TrashIcon from '../assets/svg/trash.svg';
-import ButtonWithSvgIcon from './ButtonWithSvgIcon';
-import {todosSlice} from '../store/reducers/todosSlice';
-import {useAppDispatch} from '../hook/redux';
+import {ITodo} from '../../models';
+import DoneIcon from '../../assets/svg/done.svg';
+import TrashIcon from '../../assets/svg/trash.svg';
+import {ButtonWithSvgIcon} from '../../components';
+import {todosSlice} from '../../store/reducers/todosSlice';
+import {useAppDispatch} from '../../hook/redux';
 
 interface IProps {
   todo: ITodo;

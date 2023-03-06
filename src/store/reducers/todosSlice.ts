@@ -1,4 +1,4 @@
-import {ITodo} from '../../models/ITodo';
+import {ITodo} from '../../models';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import uuid from 'react-native-uuid';
 

@@ -1,12 +1,12 @@
 import React, {useRef, useEffect} from 'react';
 import {Text, StyleSheet, Animated, View} from 'react-native';
-import {INotification, NotificationType} from '../models/INotification';
-import SuccessIcon from '../assets/svg/success.svg';
-import FailedIcon from '../assets/svg/failed.svg';
-import InfoIcon from '../assets/svg/info.svg';
+import {INotification, NotificationType} from '../../models';
+import SuccessIcon from '../../assets/svg/success.svg';
+import FailedIcon from '../../assets/svg/failed.svg';
+import InfoIcon from '../../assets/svg/info.svg';
 import {BlurView} from '@react-native-community/blur';
-import CloseIcon from '../assets/svg/close.svg';
-import ButtonWithSvgIcon from './ButtonWithSvgIcon';
+import CloseIcon from '../../assets/svg/close.svg';
+import {ButtonWithSvgIcon} from '../../components';
 
 interface IProps {
   isOpen: boolean;

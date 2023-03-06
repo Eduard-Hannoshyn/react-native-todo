@@ -10,11 +10,11 @@ import {
   Animated,
 } from 'react-native';
 import {BlurView} from '@react-native-community/blur';
-import {useAppDispatch, useAppSelector} from '../hook/redux';
+import {useAppDispatch, useAppSelector} from '../../hook/redux';
 import {
   makeSelectIsNotificationsOpen,
   makeSelectNotification,
-} from '../store/selectors/globalSeletor';
+} from '../../store/selectors/globalSeletor';
 
 interface IProps {
   isDarkMode: boolean;
