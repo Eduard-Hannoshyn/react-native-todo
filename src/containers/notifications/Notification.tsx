@@ -1,4 +1,4 @@
-import React, {useRef, useEffect} from 'react';
+import React, {useRef, useEffect, memo} from 'react';
 import {Text, StyleSheet, Animated, View} from 'react-native';
 import {INotification, NotificationType} from '../../models';
 import SuccessIcon from '../../assets/svg/success.svg';
@@ -7,6 +7,9 @@ import InfoIcon from '../../assets/svg/info.svg';
 import {BlurView} from '@react-native-community/blur';
 import CloseIcon from '../../assets/svg/close.svg';
 import {ButtonWithSvgIcon} from '../../components';
+import {globalSlice} from '../../store/reducers/globalSlice';
+import {useAppDispatch} from '../../hook/redux';
+import useTimer from '../../hook/useTimer';
 
 interface IProps {
   isOpen: boolean;
@@ -19,14 +22,22 @@ const GAP = 5;
 const HEIGHT = 60;
 
 function Notification(props: IProps): JSX.Element {
-  const {isOpen, index, notification, windowHeight} = props;
-  const {type, message} = notification;
+  const dispatch = useAppDispatch();
+  const {deleteNotification} = globalSlice.actions;
+  const {isOpen, index, notification} = props;
+  const {id, type, message} = notification;
   const Icon = iconMapper[type];
   const translateY = (isOpen ? HEIGHT + GAP : GAP) * index;
-  const anim = useRef(new Animated.Value(windowHeight * -1)).current;
+  const anim = useRef(new Animated.Value(HEIGHT * -2)).current;
+  const [clearTimer] = useTimer(() => dispatch(deleteNotification(id)), 4500);
 
   useEffect(() => {
-    //TODO: change here
+    if (isOpen) {
+      clearTimer();
+    }
+  }, [isOpen, clearTimer]);
+
+  useEffect(() => {
     Animated.timing(anim, {
       toValue: translateY,
       duration: 500,
@@ -34,7 +45,9 @@ function Notification(props: IProps): JSX.Element {
     }).start();
   }, [translateY, anim]);
 
-  const handleCloseNotification = () => {};
+  const handleCloseNotification = () => {
+    dispatch(deleteNotification(id));
+  };
 
   return (
     <Animated.View
@@ -64,7 +77,7 @@ const iconMapper = {
 const styles = StyleSheet.create({
   shadowContainer: {
     position: 'absolute',
-    top: 12,
+    top: 0,
     left: 12,
     right: 12,
     shadowOffset: {
@@ -94,4 +107,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Notification;
+export default memo(Notification);

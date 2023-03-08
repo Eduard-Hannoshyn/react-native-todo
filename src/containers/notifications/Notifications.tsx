@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef} from 'react';
 import Notification from './Notification';
 import {
   View,
@@ -15,6 +15,7 @@ import {
   makeSelectIsNotificationsOpen,
   makeSelectNotification,
 } from '../../store/selectors/globalSeletor';
+import {globalSlice} from '../../store/reducers/globalSlice';
 
 interface IProps {
   isDarkMode: boolean;
@@ -25,14 +26,12 @@ function Notifications(props: IProps): JSX.Element {
   const dispatch = useAppDispatch();
   const notifications = useAppSelector(makeSelectNotification());
   const isNotificationsOpen = useAppSelector(makeSelectIsNotificationsOpen());
-
-  const [isOpen, setIsOpen] = useState(false);
+  const {toggleNotifications} = globalSlice.actions;
   const windowHeight = Dimensions.get('window').height;
   const anim = useRef(new Animated.Value(-windowHeight)).current;
-  const translateY = isOpen ? 0 : -windowHeight;
+  const translateY = isNotificationsOpen ? 0 : -windowHeight;
 
   useEffect(() => {
-    //TODO: change here
     Animated.timing(anim, {
       toValue: translateY,
       duration: 250,
@@ -41,7 +40,7 @@ function Notifications(props: IProps): JSX.Element {
   }, [translateY, anim]);
 
   const handleOpenNotifications = () => {
-    setIsOpen(prevState => !prevState);
+    dispatch(toggleNotifications());
   };
 
   return (
@@ -60,7 +59,7 @@ function Notifications(props: IProps): JSX.Element {
           <View>
             {notifications.map((notification, index) => (
               <Notification
-                isOpen={isOpen}
+                isOpen={isNotificationsOpen}
                 index={index}
                 key={notification.id}
                 notification={notification}

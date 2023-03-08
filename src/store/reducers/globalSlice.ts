@@ -31,6 +31,9 @@ export const globalSlice = createSlice({
         ({id}) => id !== action.payload,
       );
     },
+    toggleNotifications(state) {
+      state.isNotificationsOpen = !state.isNotificationsOpen;
+    },
   },
 });
 

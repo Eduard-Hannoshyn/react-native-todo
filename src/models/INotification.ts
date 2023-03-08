@@ -10,4 +10,4 @@ export interface INotification {
   message: string;
 }
 
-export type INotificationAction = Omit<INotification, 'id'>;
+export type INotificationAction = Pick<INotification, 'type' | 'message'>;
