@@ -10,12 +10,13 @@ import {
   Animated,
 } from 'react-native';
 import {BlurView} from '@react-native-community/blur';
-import {useAppDispatch, useAppSelector} from '../../hook/redux';
+import {useAppDispatch, useAppSelector} from '../../hook';
 import {
   makeSelectIsNotificationsOpen,
   makeSelectNotification,
 } from '../../store/selectors/globalSeletor';
 import {globalSlice} from '../../store/reducers/globalSlice';
+import usePrev from '../../hook/usePrev';
 
 interface IProps {
   isDarkMode: boolean;
@@ -25,11 +26,19 @@ function Notifications(props: IProps): JSX.Element {
   const {isDarkMode} = props;
   const dispatch = useAppDispatch();
   const notifications = useAppSelector(makeSelectNotification());
-  const isNotificationsOpen = useAppSelector(makeSelectIsNotificationsOpen());
-  const {toggleNotifications} = globalSlice.actions;
+  const isOpen = useAppSelector(makeSelectIsNotificationsOpen());
+  const {toggleNotifications, deleteNotifications} = globalSlice.actions;
   const windowHeight = Dimensions.get('window').height;
+  const isPrevOpen = usePrev(isOpen);
   const anim = useRef(new Animated.Value(-windowHeight)).current;
-  const translateY = isNotificationsOpen ? 0 : -windowHeight;
+  const translateY = isOpen ? 0 : -windowHeight;
+
+  useEffect(() => {
+    if (!isOpen && isPrevOpen) {
+      dispatch(deleteNotifications());
+    }
+    // eslint-disable-next-line
+  }, [isOpen, isPrevOpen]);
 
   useEffect(() => {
     Animated.timing(anim, {
@@ -59,7 +68,7 @@ function Notifications(props: IProps): JSX.Element {
           <View>
             {notifications.map((notification, index) => (
               <Notification
-                isOpen={isNotificationsOpen}
+                isOpen={isOpen}
                 index={index}
                 key={notification.id}
                 notification={notification}

@@ -34,6 +34,9 @@ export const globalSlice = createSlice({
     toggleNotifications(state) {
       state.isNotificationsOpen = !state.isNotificationsOpen;
     },
+    deleteNotifications(state) {
+      state.notifications = [];
+    },
   },
 });
 
