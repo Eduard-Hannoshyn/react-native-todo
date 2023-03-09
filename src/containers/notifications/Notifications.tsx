@@ -16,7 +16,7 @@ import {
   makeSelectNotification,
 } from '../../store/selectors/globalSeletor';
 import {globalSlice} from '../../store/reducers/globalSlice';
-import usePrev from '../../hook/usePrev';
+import {usePrev} from '../../hook';
 
 interface IProps {
   isDarkMode: boolean;

@@ -4,12 +4,12 @@ import {INotification, NotificationType} from '../../models';
 import SuccessIcon from '../../assets/svg/success.svg';
 import FailedIcon from '../../assets/svg/failed.svg';
 import InfoIcon from '../../assets/svg/info.svg';
-import {BlurView} from '@react-native-community/blur';
 import CloseIcon from '../../assets/svg/close.svg';
+import {BlurView} from '@react-native-community/blur';
 import {ButtonWithSvgIcon} from '../../components';
 import {globalSlice} from '../../store/reducers/globalSlice';
-import {useAppDispatch} from '../../hook/redux';
-import useTimer from '../../hook/useTimer';
+import {useAppDispatch} from '../../hook';
+import {useTimer} from '../../hook';
 
 interface IProps {
   isOpen: boolean;

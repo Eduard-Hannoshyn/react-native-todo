@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {FlatList, StyleSheet, Text, TextInput, View} from 'react-native';
-import {useAppDispatch, useAppSelector} from '../../hook/redux';
+import {useAppDispatch, useAppSelector} from '../../hook';
 import {todosSlice} from '../../store/reducers/todosSlice';
 import Todo from './Todo';
 import {makeSelectUncompletedTodos} from '../../store/selectors/todosSelector';

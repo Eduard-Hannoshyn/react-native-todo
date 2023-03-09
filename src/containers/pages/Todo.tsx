@@ -5,7 +5,7 @@ import DoneIcon from '../../assets/svg/done.svg';
 import TrashIcon from '../../assets/svg/trash.svg';
 import {ButtonWithSvgIcon} from '../../components';
 import {todosSlice} from '../../store/reducers/todosSlice';
-import {useAppDispatch} from '../../hook/redux';
+import {useAppDispatch} from '../../hook';
 
 interface IProps {
   todo: ITodo;
