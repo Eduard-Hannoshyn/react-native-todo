@@ -13,6 +13,7 @@ import {useTimer} from '../../hook';
 
 interface IProps {
   isOpen: boolean;
+  isOneNotification: boolean;
   index: number;
   notification: INotification;
   windowHeight: number;
@@ -23,8 +24,8 @@ const HEIGHT = 60;
 
 function Notification(props: IProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const {deleteNotification} = globalSlice.actions;
-  const {isOpen, index, notification} = props;
+  const {deleteNotification, toggleNotifications} = globalSlice.actions;
+  const {isOpen, isOneNotification, index, notification} = props;
   const {id, type, message} = notification;
   const Icon = iconMapper[type];
   const translateY = (isOpen ? HEIGHT + GAP : GAP) * index;
@@ -47,6 +48,10 @@ function Notification(props: IProps): JSX.Element {
 
   const handleCloseNotification = () => {
     dispatch(deleteNotification(id));
+
+    if (isOpen && isOneNotification) {
+      dispatch(toggleNotifications());
+    }
   };
 
   return (

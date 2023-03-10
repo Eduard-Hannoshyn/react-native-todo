@@ -16,7 +16,6 @@ import {
   makeSelectNotification,
 } from '../../store/selectors/globalSeletor';
 import {globalSlice} from '../../store/reducers/globalSlice';
-import {usePrev} from '../../hook';
 
 interface IProps {
   isDarkMode: boolean;
@@ -29,17 +28,10 @@ function Notifications(props: IProps): JSX.Element {
   const isOpen = useAppSelector(makeSelectIsNotificationsOpen());
   const {toggleNotifications, deleteNotifications} = globalSlice.actions;
   const windowHeight = Dimensions.get('window').height;
-  const isPrevOpen = usePrev(isOpen);
   const anim = useRef(new Animated.Value(-windowHeight)).current;
   const translateY = isOpen ? 0 : -windowHeight;
   const height = isOpen ? '100%' : 'auto';
-
-  useEffect(() => {
-    if (!isOpen && isPrevOpen) {
-      dispatch(deleteNotifications());
-    }
-    // eslint-disable-next-line
-  }, [isOpen, isPrevOpen]);
+  const isOneNotification = notifications.length === 1;
 
   useEffect(() => {
     Animated.timing(anim, {
@@ -49,8 +41,12 @@ function Notifications(props: IProps): JSX.Element {
     }).start();
   }, [translateY, anim]);
 
-  const handleOpenNotifications = () => {
+  const handleToggleNotifications = () => {
     dispatch(toggleNotifications());
+
+    if (isOpen) {
+      dispatch(deleteNotifications());
+    }
   };
 
   return (
@@ -65,11 +61,12 @@ function Notifications(props: IProps): JSX.Element {
           activeOpacity={1}
           underlayColor="transparent"
           style={styles.touchable}
-          onPress={handleOpenNotifications}>
+          onPress={handleToggleNotifications}>
           <View>
             {notifications.map((notification, index) => (
               <Notification
                 isOpen={isOpen}
+                isOneNotification={isOneNotification}
                 index={index}
                 key={notification.id}
                 notification={notification}
