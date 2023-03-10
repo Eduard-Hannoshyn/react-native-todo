@@ -28,7 +28,7 @@ function Notification(props: IProps): JSX.Element {
   const {id, type, message} = notification;
   const Icon = iconMapper[type];
   const translateY = (isOpen ? HEIGHT + GAP : GAP) * index;
-  const anim = useRef(new Animated.Value(HEIGHT * -2)).current;
+  const anim = useRef(new Animated.Value(HEIGHT * -3)).current;
   const [clearTimer] = useTimer(() => dispatch(deleteNotification(id)), 4500);
 
   useEffect(() => {
@@ -77,7 +77,7 @@ const iconMapper = {
 const styles = StyleSheet.create({
   shadowContainer: {
     position: 'absolute',
-    top: 0,
+    top: 12,
     left: 12,
     right: 12,
     shadowOffset: {
