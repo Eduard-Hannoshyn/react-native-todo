@@ -32,6 +32,7 @@ function Notifications(props: IProps): JSX.Element {
   const isPrevOpen = usePrev(isOpen);
   const anim = useRef(new Animated.Value(-windowHeight)).current;
   const translateY = isOpen ? 0 : -windowHeight;
+  const height = isOpen ? '100%' : 'auto';
 
   useEffect(() => {
     if (!isOpen && isPrevOpen) {
@@ -58,7 +59,7 @@ function Notifications(props: IProps): JSX.Element {
         style={[styles.animatedContainer, {transform: [{translateY: anim}]}]}>
         <BlurView blurType="dark" blurAmount={5} style={styles.blurContainer} />
       </Animated.View>
-      <SafeAreaView style={styles.safeContainer}>
+      <SafeAreaView style={[styles.safeContainer, {height}]}>
         <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
         <TouchableHighlight
           activeOpacity={1}
