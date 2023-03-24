@@ -1,4 +1,4 @@
-import React, {ComponentType} from 'react';
+import React, {PropsWithChildren} from 'react';
 import {
   View,
   SafeAreaView,
@@ -8,14 +8,13 @@ import {
   ImageSourcePropType,
 } from 'react-native';
 
-interface IProps {
+type IProps = PropsWithChildren<{
   isDarkMode: boolean;
   textureSource: ImageSourcePropType;
-  component: ComponentType;
-}
+}>;
 
 function SafeBackgroundContainer(props: IProps): JSX.Element {
-  const {isDarkMode, textureSource, component: Component} = props;
+  const {isDarkMode, textureSource, children} = props;
   return (
     <ImageBackground
       source={textureSource}
@@ -24,7 +23,7 @@ function SafeBackgroundContainer(props: IProps): JSX.Element {
       <View style={[styles.container, styles.overlay]}>
         <SafeAreaView style={styles.container}>
           <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-          <Component />
+          {children}
         </SafeAreaView>
       </View>
     </ImageBackground>

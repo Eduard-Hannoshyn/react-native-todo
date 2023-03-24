@@ -1,15 +1,20 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
+import {IRoute} from '../../models';
 
-function Routes(): JSX.Element {
+interface IProps {
+  routesConfig: IRoute[];
+}
+
+function Navigation(props: IProps): JSX.Element {
   return <View style={styles.container} />;
 }
 
-export default Routes;
-
 const styles = StyleSheet.create({
   container: {
-    height: '80px',
+    height: 60,
     backgroundColor: 'red',
   },
 });
+
+export default Navigation;

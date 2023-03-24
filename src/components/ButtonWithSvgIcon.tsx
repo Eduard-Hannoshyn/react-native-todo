@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {PropsWithChildren} from 'react';
 import {View, Text, TouchableHighlight, StyleSheet} from 'react-native';
-import type {PropsWithChildren} from 'react';
 import {SvgProps} from 'react-native-svg';
 import {GestureResponderEvent} from 'react-native/Libraries/Types/CoreEventTypes';
 
